@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "andropy"
+version = "0.1.3"
+description = "Python framework to create native Android apps"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "typer[all]>=0.15.0",
+    "rich>=13.9.0",
+    "Pillow>=10.0.0"
+]
+authors = [
+    { name = "Yan Naing", email = "yannaing.dev@gmail.com" }
+]
+license = { file = "LICENSE" }
+keywords = ["android", "python", "framework", "mobile", "gui"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: User Interfaces"
+]
+
+[project.scripts]
+andropy = "andropy.cli:app"
+
+[project.urls]
+Homepage = "https://yannaing-ip.github.io/andropy/"
+Repository = "https://github.com/yannaing-ip/andropy"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["andropy*"]
+
+[tool.setuptools.package-data]
+"andropy" = ["templates/**/*", "templates/**/.*"]

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#1976D2</item>
+        <item name="colorPrimaryDark">#0D47A1</item>
+        <item name="colorAccent">#42A5F5</item>
+        <item name="android:windowBackground">#F5F5F5</item>
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">#1976D2</item>
+        <item name="titleTextColor">#FFFFFF</item>
+        <item name="subtitleTextColor">#B3E5FC</item>
+    </style>
+</resources>

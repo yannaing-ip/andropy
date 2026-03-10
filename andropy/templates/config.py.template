@@ -1,0 +1,41 @@
+# config.py
+from main import main_activity
+
+# ─────────────────────────────────────────────
+# App Info
+# ─────────────────────────────────────────────
+APP_NAME = "{{app_name}}"
+VERSION_CODE = 1
+VERSION_NAME = "1.0"
+
+# ─────────────────────────────────────────────
+# Theme
+# ─────────────────────────────────────────────
+THEME = "light"  # light, dark
+
+# ─────────────────────────────────────────────
+# Launcher
+# ─────────────────────────────────────────────
+LAUNCHER_ICON = None
+LAUNCHER_ACTIVITY = main_activity
+
+# ─────────────────────────────────────────────
+# Colors
+# ─────────────────────────────────────────────
+COLOR_PRIMARY          = "#1565C0"
+COLOR_PRIMARY_DARK     = "#0D47A1"
+COLOR_ACCENT           = "#1565C0"
+COLOR_BACKGROUND       = "#FFFFFF"
+COLOR_TEXT_PRIMARY     = "#212121"
+COLOR_TEXT_SECONDARY   = "#757575"
+COLOR_TEXT_HINT        = "#9E9E9E"
+COLOR_DIVIDER          = "#E0E0E0"
+COLOR_INPUT_BG         = "#F5F5F5"
+COLOR_TOOLBAR_TITLE    = "#FFFFFF"
+COLOR_TOOLBAR_SUB      = "#BBDEFB"
+COLOR_BUTTON_TEXT      = "#FFFFFF"
+
+# ─────────────────────────────────────────────
+# Shape
+# ─────────────────────────────────────────────
+BUTTON_RADIUS = 4  # dp

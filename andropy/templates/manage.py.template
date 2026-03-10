@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""
+Andropy project manager.
+Usage:
+    python manage.py compile         #compile python UI to Android UI 
+    python manage.py build            # build debug APK
+    python manage.py build --release  # build release APK
+    python manage.py clean            # clean build files
+    python manage.py run              # install on connected device
+"""
+
+import subprocess
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).parent
+ANDROID_DIR = PROJECT_ROOT / "app"
+GRADLEW = ANDROID_DIR / "gradlew"
+
+
+def gradle(task: str, no_daemon: bool = False):
+    if not GRADLEW.exists():
+        print("❌ gradlew not found. Is this a valid Andropy project?")
+        sys.exit(1)
+
+    cmd = [str(GRADLEW), task]
+    if no_daemon:
+        cmd.append("--no-daemon")
+
+    result = subprocess.run(cmd, cwd=ANDROID_DIR)
+    if result.returncode != 0:
+        print(f"\n❌ Task '{task}' failed.")
+        sys.exit(1)
+
+def compile_ui(args):
+    from andropy.ui.compiler import compile_all
+    main_dir = PROJECT_ROOT / "main"
+    layout_dir = ANDROID_DIR / "app" / "src" / "main" / "res" / "layout"
+    print("\n🎨 Compiling Python UI to Android UI...\n")
+    compile_all(main_dir, layout_dir)
+    print("\n✅ Compilation complete!\n")
+
+def build(args):
+    release = "--release" in args
+    no_daemon = "--no-daemon" in args
+    task = "assembleRelease" if release else "assembleDebug"
+    build_type = "release" if release else "debug"
+    print(f"\n🔨 Building {build_type} APK...\n")
+    gradle(task, no_daemon)
+    apk = ANDROID_DIR / "app" / "build" / "outputs" / "apk" / build_type / f"app-{build_type}.apk"
+    print(f"\n✅ Build successful!")
+    print(f"→ APK: {apk}\n")
+
+
+def clean(args):
+    no_daemon = "--no-daemon" in args
+    print("\n🧹 Cleaning build files...\n")
+    gradle("clean", no_daemon)
+    print("\n✅ Clean successful!\n")
+
+
+def run_app(args):
+    no_daemon = "--no-daemon" in args
+    print("\n🚀 Installing APK on device...\n")
+    gradle("installDebug", no_daemon)
+    print("\n✅ App installed!\n")
+
+
+COMMANDS = {
+    "build": build,
+    "clean": clean,
+    "run": run_app,
+    "compile": compile_ui,
+}
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if not args or args[0] not in COMMANDS:
+        print("Usage: python manage.py [build|clean|run] [--release] [--no-daemon]")
+        sys.exit(1)
+
+    COMMANDS[args[0]](args[1:])
